@@ -1,0 +1,43 @@
+# Test cases for say_my_name function
+
+### Importing
+```python
+>>> say_my_name = __import__('3-say_my_name').say_my_name
+
+## Test Case 1: Basic Functionality with Both Names
+    >>> say_my_name("John", "Doe")
+    My name is John Doe
+
+## Test Case 2: Basic Functionality with Only First Name
+    >>> say_my_name("Jane")
+    My name is Jane 
+
+## Test Case 3: First Name is Not a String
+    >>> say_my_name(123, "Doe")
+    Traceback (most recent call last):
+        ...
+    TypeError: first_name must be a string
+
+## Test Case 4: Last Name is Not a String
+    >>> say_my_name("John", 456)
+    Traceback (most recent call last):
+        ...
+    TypeError: last_name must be a string
+
+## Test Case 5: Both Names are Not Strings
+    >>> say_my_name(123, 456)
+    Traceback (most recent call last):
+        ...
+    TypeError: first_name must be a string
+
+## Test Case 6: Empty Strings for Both Names
+    >>> say_my_name("", "")
+    My name is  
+
+## Test Case 7: Empty String for Last Name
+    >>> say_my_name("Alice", "")
+    My name is Alice 
+
+## Test Case 8: Empty String for First Name
+    >>> say_my_name("", "Smith")
+    My name is  Smith
