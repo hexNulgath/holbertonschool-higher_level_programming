@@ -1,0 +1,61 @@
+# Test cases for matrix_divided function
+
+###Importing
+```python
+>>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+
+## Test Case 1: Basic functionality
+Input:
+matrix = [[1, 2, 3], [4, 5, 6]]
+div = 2
+Expected Output:
+[[0.5, 1.0, 1.5], [2.0, 2.5, 3.0]]
+
+## Test Case 2: Division by zero
+Input:
+matrix = [[1, 2, 3], [4, 5, 6]]
+div = 0
+Expected Output:
+ZeroDivisionError: division by zero
+
+## Test Case 3: Non-numeric divisor
+Input:
+matrix = [[1, 2, 3], [4, 5, 6]]
+div = 'a'
+Expected Output:
+TypeError: div must be a number
+
+## Test Case 4: Non-list matrix
+Input:
+matrix = 'not_a_matrix'
+div = 2
+Expected Output:
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+## Test Case 5: Matrix with inconsistent row sizes
+Input:
+matrix = [[1, 2, 3], [4, 5]]
+div = 2
+Expected Output:
+TypeError: Each row of the matrix must have the same size
+
+## Test Case 6: Matrix with non-numeric values
+Input:
+matrix = [[1, 2, 'three'], [4, 5, 6]]
+div = 2
+Expected Output:
+TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+## Test Case 7: Empty matrix
+Input:
+matrix = [[], []]
+div = 2
+Expected Output:
+[[], []]
+
+## Test Case 8: Single element matrix
+Input:
+matrix = [[10]]
+div = 5
+Expected Output:
+[[2.0]]
