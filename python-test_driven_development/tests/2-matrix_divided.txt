@@ -59,3 +59,8 @@ matrix = [[10]]
 div = 5
 Expected Output:
 [[2.0]]
+
+## Test Case 9: Empty function
+Input:
+Expected Output:
+[[], []]
