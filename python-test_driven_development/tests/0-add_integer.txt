@@ -1,0 +1,59 @@
+
+# Test cases for add_integer module
+
+## Expected behavior:
+1. The function should return the sum of two integers.
+2. If the input is a float, it should be cast to an integer.
+3. If either of the inputs cannot be cast to an integer, a TypeError should be raised.
+
+## Importing add_integer from the add_integer module:
+```python
+>>> add_integer = __import__('0-add_integer').add_integer
+
+## Test cases:
+
+### Test 1: Adding two integers
+    >>> add_integer(2, 3)
+    5
+
+### Test 2: Adding an integer and a float (float gets cast to int)
+    >>> add_integer(3, 2.5)
+    5
+
+### Test 3: Adding an integer and using the default value for 'b'
+    >>> add_integer(5)
+    103
+
+### Test 4: Invalid input - 'a' is a string
+    >>> add_integer("Hello", 3)
+    Traceback (most recent call last):
+      ...
+    TypeError: a must be an integer
+
+### Test 5: Invalid input - 'a' is a list
+    >>> add_integer([1, 2], 3)
+    Traceback (most recent call last):
+      ...
+    TypeError: a must be an integer
+
+### Test 6: Invalid input - both 'a' and 'b' are strings
+    >>> add_integer("hello", "world")
+    Traceback (most recent call last):
+      ...
+    TypeError: a must be an integer
+
+### Test 7: Invalid input - missing 'a'
+   >>> add_integer()
+   Traceback (most recent call last):
+   ...
+   TypeError: add_integer() missing 1 required positional argument: 'a'
+
+### Test 8: Invalid input - 'b' is not an integer or float
+    >>> add_integer(2, "three")
+    Traceback (most recent call last):
+      ...
+    TypeError: b must be an integer
+
+### Test 9: Valid input with large numbers
+    >>> add_integer(1000000000, 1000000000)
+    2000000000
