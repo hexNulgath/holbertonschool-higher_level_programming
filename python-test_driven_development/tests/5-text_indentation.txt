@@ -1,0 +1,59 @@
+# Test cases for text_indentation function
+
+### Importing
+>>> text_indentation = __import__('5-text_indentation').text_indentation
+
+### Test Case 1: Basic Functionality with Periods
+>>> text_indentation("Hello. How are you? I am fine.")
+Hello.
+<BLANKLINE>
+How are you?
+<BLANKLINE>
+I am fine.
+<BLANKLINE>
+
+### Test Case 2: Text with Multiple Punctuation Marks
+>>> text_indentation("Wait: What? Really.")
+Wait:
+<BLANKLINE>
+What?
+<BLANKLINE>
+Really.
+<BLANKLINE>
+
+### Test Case 3: Text with Spaces After Punctuation
+>>> text_indentation("Hey. What's up?  You there?")
+Hey.
+<BLANKLINE>
+What's up?
+<BLANKLINE>
+You there?
+<BLANKLINE>
+
+### Test Case 4: Text with No Punctuation
+>>> text_indentation("This is just a plain sentence")
+This is just a plain sentence
+
+### Test Case 5: Text with Only Spaces
+>>> text_indentation("    ")
+<BLANKLINE>
+
+### Test Case 6: Non-String Input (Integer)
+>>> text_indentation(123)
+Traceback (most recent call last):
+    ...
+TypeError: text must be a string
+
+### Test Case 7: Empty String
+>>> text_indentation("")
+
+### Test Case 8: Text with Multiple Periods, Question Marks, and Colons
+>>> text_indentation("This is strange: really? How can it be? I don't know.")
+This is strange:
+<BLANKLINE>
+really?
+<BLANKLINE>
+How can it be?
+<BLANKLINE>
+I don't know.
+<BLANKLINE>
