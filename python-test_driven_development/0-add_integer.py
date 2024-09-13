@@ -3,17 +3,14 @@
 This module provides a function 'add_integer' that adds two integers.
 
 Args:
-    a: The first number, must be an integer or a value convertible to an integer.
-    b: The second number, must be an integer or a value convertible to an integer (default is 98).
+    a: must be an integer or a value convertible to an integer.
+    b: must be an integer or a value convertible to an integer (default is 98).
 """
+
 
 def add_integer(a, b=98):
     """
     Adds two integers.
-
-    Args:
-        a: The first number, must be an integer or a value convertible to an integer.
-        b: The second number, must be an integer or a value convertible to an integer (default is 98).
 
     Returns:
         int: The sum of a and b.
