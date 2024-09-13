@@ -9,7 +9,6 @@
 ## Importing add_integer from the add_integer module:
 ```python
 >>> add_integer = __import__('0-add_integer').add_integer
->>> from decimal import Decimal
 
 ## Test cases:
 
@@ -60,11 +59,12 @@
     2000000000
 
 ### Test 10: Large float overflow
-    >>> overflow = Decimal('10') ** Decimal('1000')
+    >>> large_number = 1e308
+    >>> overflow = large_number * 10
     >>> add_integer(overflow, 1)
     Traceback (most recent call last):
     ...
-    TypeError: a must be an integer
+    OverflowError: cannot convert float infinity to integer
 
 ### Test 11: float NaN
     >>> add_integer(float('nan'), 1)
