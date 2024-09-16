@@ -21,7 +21,7 @@ class Square:
         Returns the area of the square.
     
     my_print():
-        Prints the square using the '#' character with spaces based on the position.
+        Prints the square using the '#' character.
 
     Properties
     ----------
