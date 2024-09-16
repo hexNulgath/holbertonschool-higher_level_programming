@@ -1,4 +1,11 @@
 #!/usr/bin/python3
+"""
+Module that defines a Square class.
+
+This module provides a class `Square` to represent squares with additional features such as 
+validating size, calculating the area, and printing the square.
+"""
+
 class Square:
     """
     A class used to represent a Square.
