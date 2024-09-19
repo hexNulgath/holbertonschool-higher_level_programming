@@ -52,20 +52,10 @@ class Rectangle:
         TypeError:
             If width or height is not an integer.
         """
-        if isinstance(width, int) and width >= 0:
-            __width = width
-        if width < 0:
-            raise ValueError("width must be >= 0")
-        if not isinstance(width, int):
-            raise TypeError("width must be an integer")
+        self.height = height
+        self.width = width
 
-        if isinstance(height, int) and width >= 0:
-            __height = height
-        if height < 0:
-            raise ValueError("height must be >= 0")
-        if not isinstance(height, int):
-            raise TypeError("height must be an integer")
-
+    @property
     def width(self):
         """
         Gets the width of the rectangle.
@@ -77,6 +67,7 @@ class Rectangle:
         """
         return self.__width
 
+    @property
     def height(self):
         """
         Gets the height of the rectangle.
@@ -88,6 +79,7 @@ class Rectangle:
         """
         return self.__height
 
+    @width.setter
     def width(self, value):
         """
         Sets the width of the rectangle.
@@ -104,13 +96,13 @@ class Rectangle:
         TypeError:
             If width is not an integer.
         """
-        if isinstance(value, int) and value >= 0:
-            self.__width = value
         if value < 0:
             raise ValueError("width must be >= 0")
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
+        self.__width = value
 
+    @height.setter
     def height(self, value):
         """
         Sets the height of the rectangle.
@@ -127,9 +119,8 @@ class Rectangle:
         TypeError:
             If height is not an integer.
         """
-        if isinstance(value, int) and value >= 0:
-            self.__height = value
         if value < 0:
             raise ValueError("height must be >= 0")
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
+        self.__height = value
