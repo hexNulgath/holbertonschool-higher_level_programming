@@ -2,12 +2,15 @@
 """
 Module: base_geometry
 
-This module defines a base class for geometric shapes. It is designed as a
-foundation upon which more complex geometric classes and functionality can
-be built.
+This module defines a base class for geometric shapes, along with specific
+subclasses for rectangles and squares. It provides a foundation for defining
+geometric shapes and includes methods for validating integer values,
+calculating areas, and providing string representations of the shapes.
 
 Classes:
-    - BaseGeometry: An empty base class for geometry objects.
+    - BaseGeometry: A base class for geometry objects.
+    - Rectangle: A subclass of BaseGeometry that represents a rectangle.
+    - Square: A subclass of Rectangle that represents a square.
 """
 
 
@@ -88,7 +91,7 @@ class Rectangle(BaseGeometry):
         Returns:
             str: The string representation of the rectangle.
         """
-        return f"[{self.__class__}] {self.__width}/{self.__height}"
+        return f"[{self.__class__.__name__}] {self.__width}/{self.__height}"
 
     def area(self):
         """
@@ -123,8 +126,8 @@ class Square(Rectangle):
             ValueError: If size is less than or equal to zero.
         """
         self.integer_validator("size", size)
-        self.__height = size
-        self.__width = size
+        self._Rectangle__width = size
+        self._Rectangle__height = size
 
     def __str__(self):
         """
