@@ -28,3 +28,19 @@
 Traceback (most recent call last):
     ...
 TypeError: '<' not supported between instances of 'str' and 'int'
+
+# Test Case 6: Checking __str__ method (inherited from list)
+>>> my_list = MyList([4, 3, 2, 1])
+>>> print(my_list)
+[4, 3, 2, 1]
+
+# Test Case 7: Appending an element to the MyList and verifying list contents
+>>> my_list.append(10)
+>>> print(my_list)
+[4, 3, 2, 1, 10]
+
+# Test Case 8: Verifying that print_sorted() returns a new sorted list, not modifying original
+>>> sorted_list = my_list.print_sorted()
+[1, 2, 3, 4, 10]
+>>> print(my_list)  # Original list should remain unchanged
+[4, 3, 2, 1, 10]
