@@ -2,12 +2,15 @@
 """
 Module: base_geometry
 
-This module defines a base class for geometric shapes. It is designed as a
-foundation upon which more complex geometric classes and functionality can
-be built.
+This module defines a base class for geometric shapes and its subclasses.
+The module includes a base class `BaseGeometry` that provides methods for
+geometry-related functionality, such as validating integers and calculating
+area, along with specific shapes such as `Rectangle` and `Square`.
 
 Classes:
-    - BaseGeometry: An empty base class for geometry objects.
+    - BaseGeometry: A base class for geometry objects.
+    - Rectangle: A subclass of BaseGeometry that defines a rectangle shape.
+    - Square: A subclass of Rectangle that defines a square shape.
 """
 
 
@@ -15,8 +18,9 @@ class BaseGeometry:
     """
     A base class for geometry objects.
 
-    This class serves as a foundation for defining geometric shapes.It includes
-    methods for validating integer values and calculating the area.
+    This class serves as a foundation for defining geometric shapes.
+    It includes methods for validating integer values and calculating
+    the area.
     """
 
     def area(self):
@@ -45,9 +49,9 @@ class BaseGeometry:
             TypeError: If value is not an integer.
             ValueError: If value is less than or equal to zero.
         """
-        if value.__class__ is not int:
+        if not isinstance(value, int):
             raise TypeError(f"{name} must be an integer")
-        elif value <= 0:
+        if value <= 0:
             raise ValueError(f"{name} must be greater than 0")
 
 
@@ -116,7 +120,8 @@ class Square(Rectangle):
             size (int): The size of the square (width and height).
 
         Validates that size is a positive integer using the integer_validator
-        method inherited from BaseGeometry.
+        method inherited from BaseGeometry. Then calls the Rectangle's
+        initializer with the same value for both width and height.
 
         Raises:
             TypeError: If size is not an integer.
