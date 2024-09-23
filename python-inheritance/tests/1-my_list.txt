@@ -1,24 +1,30 @@
-# Test cases for MyList class
+## Importing my_list from the my_list module:
+```python
+>>> MyList = __import__('1-my_list').MyList
 
 # Test Case 1: Creating a MyList instance and printing sorted elements
-my_list = MyList([5, 2, 9, 1, 5, 6])
-my_list.print_sorted()  # Expected output: [1, 2, 5, 5, 6, 9]
+>>> my_list = MyList([5, 2, 9, 1, 5, 6])
+>>> my_list.print_sorted()
+[1, 2, 5, 5, 6, 9]
 
 # Test Case 2: Creating an empty MyList and printing sorted elements
-empty_list = MyList([])
-empty_list.print_sorted()  # Expected output: []
+>>> empty_list = MyList([])
+>>> empty_list.print_sorted()
+[]
 
 # Test Case 3: Creating a MyList with negative numbers and printing sorted elements
-neg_list = MyList([-3, -1, -4, -2, 0])
-neg_list.print_sorted()  # Expected output: [-4, -3, -2, -1, 0]
+>>> neg_list = MyList([-3, -1, -4, -2, 0])
+>>> neg_list.print_sorted()
+[-4, -3, -2, -1, 0]
 
 # Test Case 4: Creating a MyList with strings and printing sorted elements
-str_list = MyList(['apple', 'orange', 'banana', 'grape'])
-str_list.print_sorted()  # Expected output: ['apple', 'banana', 'grape', 'orange']
+>>> str_list = MyList(['apple', 'orange', 'banana', 'grape'])
+>>> str_list.print_sorted()
+['apple', 'banana', 'grape', 'orange']
 
 # Test Case 5: Creating a MyList with mixed types (will raise a TypeError on sorting)
-mixed_list = MyList([1, 'two', 3])
-try:
-    mixed_list.print_sorted()  # This should raise a TypeError
-except TypeError as e:
-    print(e)  # Expected output: '<' not supported between instances of 'str' and 'int'
+>>> mixed_list = MyList([1, 'two', 3])
+>>> mixed_list.print_sorted()
+Traceback (most recent call last):
+    ...
+TypeError: '<' not supported between instances of 'str' and 'int'
