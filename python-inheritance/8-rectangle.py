@@ -2,12 +2,12 @@
 """
 Module: base_geometry
 
-This module defines a base class for geometric shapes. It is designed as a
-foundation upon which more complex geometric classes and functionality can
-be built.
+This module defines a base class for geometric shapes and a subclass
+for rectangular shapes.
 
 Classes:
-    - BaseGeometry: An empty base class for geometry objects.
+    - BaseGeometry: A base class for geometry objects.
+    - Rectangle: A class representing a rectangle, subclass of BaseGeometry.
 """
 
 
