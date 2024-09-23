@@ -1,0 +1,29 @@
+# Test cases for BaseGeometry class
+
+## Test 1: Valid integer
+Input: ("width", 5)
+Expected: No exception
+
+## Test 2: Invalid type (string)
+Input: ("width", "five")
+Expected: TypeError: "width must be an integer"
+
+## Test 3: Invalid type (float)
+Input: ("width", 5.0)
+Expected: TypeError: "width must be an integer"
+
+## Test 4: Value less than or equal to zero (negative integer)
+Input: ("width", -5)
+Expected: ValueError: "width must be greater than 0"
+
+## Test 5: Value equal to zero
+Input: ("width", 0)
+Expected: ValueError: "width must be greater than 0"
+
+## Test 6: Invalid type (None)
+Input: ("width", None)
+Expected: TypeError: "width must be an integer"
+
+## Test 7: Valid integer
+Input: ("height", 10)
+Expected: No exception
