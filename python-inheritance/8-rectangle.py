@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-BaseGeometry = __import__('7-base_geometry').BaseGeometry
 """
 Module: base_geometry
 
@@ -9,6 +8,10 @@ for rectangular shapes.
 Classes:
     - Rectangle: A class representing a rectangle, subclass of BaseGeometry.
 """
+
+
+BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
 
 class Rectangle(BaseGeometry):
     """
