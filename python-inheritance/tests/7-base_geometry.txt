@@ -41,3 +41,39 @@ TypeError: width must be an integer
 
 ## Test 7: Valid integer
 >>> Geometry.integer_validator("height", 10)
+
+## Test 8: area() method (should raise exception)
+>>> Geometry.area()
+Traceback (most recent call last):
+...
+Exception: area() is not implemented
+
+## Test 9: Missing second argument for integer_validator()
+>>> Geometry.integer_validator("age")
+Traceback (most recent call last):
+...
+TypeError: integer_validator() missing 1 required positional argument: 'value'
+
+## Test 10: Invalid type (tuple)
+>>> Geometry.integer_validator("age", (4,))
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+
+## Test 11: Invalid type (set)
+>>> Geometry.integer_validator("age", {3, 4})
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+
+## Test 12: Invalid type (list)
+>>> Geometry.integer_validator("age", [4])
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+
+## Test 13: Invalid type (boolean)
+>>> Geometry.integer_validator("age", True)
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
