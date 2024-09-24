@@ -36,6 +36,6 @@ class Square(Rectangle):
             TypeError: If size is not an integer.
             ValueError: If size is less than or equal to zero.
         """
-        width = size
-        height = size
-        super().__init__(width, height)
+        self.integer_validator("size", size)
+        super().__init__(size, size)
+
