@@ -13,6 +13,8 @@ class Shape(ABC):
 
 class Circle(Shape):
     def __init__(self, radius=0):
+        if radius < 0:
+            radius = -radius
         self.radius = radius
     def area(self):
         return math.pi * self.radius ** 2 
