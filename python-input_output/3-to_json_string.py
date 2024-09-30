@@ -4,8 +4,9 @@
 This module provides a function to convert a Python object to a JSON string.
 """
 
-
 import json
+
+
 def to_json_string(my_obj):
     """
     Converts a Python object to a JSON-formatted string.
