@@ -1,23 +1,21 @@
 #!/usr/bin/python3
 
 """
-This module provides a function to serialize an object's attributes
-into a JSON-formatted string.
+This module provides a function to convert an object's attributes 
+to a dictionary, making it suitable for JSON encoding.
 """
-import json
-
 
 def class_to_json(obj):
     """
-    Serializes an object's instance variables (attributes) into a
-    JSON-formatted string.
+    Converts an object's instance variables (attributes) into a dictionary 
+    format suitable for JSON serialization.
 
     Args:
-        obj (Any): The object to be serialized.
+        obj (Any): The object whose attributes are to be converted.
 
     Returns:
-        str: A JSON string representation of the object's attributes.
-
+        dict: A dictionary containing the object's instance variables.
+    
     Example:
         class MyClass:
             def __init__(self, name, age):
@@ -25,7 +23,7 @@ def class_to_json(obj):
                 self.age = age
 
         obj = MyClass("Alice", 30)
-        json_string = class_to_json(obj)
-        # Result: '{"name": "Alice", "age": 30}'
+        obj_dict = class_to_json(obj)
+        # Result: {'name': 'Alice', 'age': 30}
     """
-    return json.dumps(obj.__dict__)
+    return obj.__dict__
