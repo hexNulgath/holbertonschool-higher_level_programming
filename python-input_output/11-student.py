@@ -3,9 +3,10 @@
 """
 This module defines a Student class with attributes for first name,
 last name, and age. It also includes methods to retrieve the instance's
-attributes in dictionary format, suitable for JSON encoding, and to 
+attributes in dictionary format, suitable for JSON encoding, and to
 reload attributes from a JSON-like dictionary.
 """
+
 
 class Student:
     """
@@ -33,7 +34,7 @@ class Student:
     def to_json(self, attrs=None):
         """
         Retrieves a dictionary representation of the Student instance.
-        If attrs is provided, only the attributes listed in attrs are 
+        If attrs is provided, only the attributes listed in attrs are
         included in the dictionary.
 
         Args:
@@ -52,11 +53,11 @@ class Student:
 
     def reload_from_json(self, json):
         """
-        Replaces all attributes of the Student instance with the values 
+        Replaces all attributes of the Student instance with the values
         from the given JSON dictionary.
 
         Args:
-            json (dict): A dictionary containing the attribute values 
+            json (dict): A dictionary containing the attribute values
                               to update in the Student instance.
         """
         for element in json:
