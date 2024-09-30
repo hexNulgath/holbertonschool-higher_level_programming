@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 
 """
-This module provides a function to convert an object's attributes 
+This module provides a function to convert an object's attributes
 to a dictionary, making it suitable for JSON encoding.
 """
 
+
 def class_to_json(obj):
     """
-    Converts an object's instance variables (attributes) into a dictionary 
+    Converts an object's instance variables (attributes) into a dictionary
     format suitable for JSON serialization.
 
     Args:
@@ -15,7 +16,7 @@ def class_to_json(obj):
 
     Returns:
         dict: A dictionary containing the object's instance variables.
-    
+
     Example:
         class MyClass:
             def __init__(self, name, age):
