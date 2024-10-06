@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import pickle
+import os
 
 """
 Module for handling serialization and deserialization
@@ -100,5 +101,13 @@ class CustomObject:
             >>> obj = CustomObject.deserialize('object.pkl')
             >>> obj.display()
         """
-        with open(filename, "rb") as pickle_in:
-            return pickle.load(pickle_in)
+        if not os.path.exists(filename):
+            print(f"Error: The file '{filename}' does not exist.")
+            return None
+
+        try:
+            with open(filename, "rb") as pickle_in:
+                return pickle.load(pickle_in)
+        except (OSError, pickle.UnpicklingError) as e:
+            print(f"Error deserializing object from file: {e}")
+            return None
