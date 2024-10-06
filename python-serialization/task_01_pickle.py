@@ -78,9 +78,11 @@ class CustomObject:
             >>> obj = CustomObject("Alice", 25, True)
             >>> obj.serialize('object.pkl')
         """
-        with open(filename, "wb") as pickle_out:
-            pickle.dump(self, pickle_out)
-
+        try:
+            with open(filename, "wb") as pickle_out:
+                pickle.dump(self, pickle_out)
+        except OSError as e:
+            return None
     @classmethod
     def deserialize(cls, filename):
         """
@@ -102,12 +104,10 @@ class CustomObject:
             >>> obj.display()
         """
         if not os.path.exists(filename):
-            print(f"Error: The file '{filename}' does not exist.")
             return None
 
         try:
             with open(filename, "rb") as pickle_in:
                 return pickle.load(pickle_in)
         except (OSError, pickle.UnpicklingError) as e:
-            print(f"Error deserializing object from file: {e}")
             return None
