@@ -29,14 +29,7 @@ def deserialize_from_xml(filename):
             if len(child):
                 parsed_dict[child.tag] = parse_element(child)
             else:
-                text = child.text
-                if text.isdigit():
-                    parsed_dict[child.tag] = int(text)
-                else:
-                    try:
-                        parsed_dict[child.tag] = float(text)
-                    except ValueError:
-                        parsed_dict[child.tag] = text.strip()
+                parsed_dict[child.tag] = child.text.strip()
         return parsed_dict
 
     return parse_element(root)
