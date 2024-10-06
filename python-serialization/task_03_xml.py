@@ -36,7 +36,7 @@ def deserialize_from_xml(filename):
                     try:
                         parsed_dict[child.tag] = float(text)
                     except ValueError:
-                        parsed_dict[child.tag] = text
+                        parsed_dict[child.tag] = text.strip()
         return parsed_dict
 
     return parse_element(root)
