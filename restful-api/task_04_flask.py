@@ -5,8 +5,7 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 users = {
-    "jane": {"username": "jane", "name": "Jane", "age": 28, "city": "Los Angeles"},
-    "john": {"username": "john", "name": "John", "age": 30, "city": "New York"}
+    "jane": {"username": "jane", "name": "Jane", "age": 28, "city": "Los Angeles"}
 }
 
 @app.route('/')
@@ -15,7 +14,8 @@ def home():
 
 @app.route('/data', methods=['GET'])
 def get_data():
-    return jsonify(list(users.keys()))
+    user_list = list(users.keys())
+    return jsonify(user_list), 200
 
 @app.route('/status')
 def status():
