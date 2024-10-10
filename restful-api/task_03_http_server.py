@@ -17,13 +17,20 @@ class my_server(http.server.BaseHTTPRequestHandler):
             self.send_header("content-type", "text/html")
             self.end_headers()
             self.wfile.write(bytes("Hello, this is a simple API!", "utf-8"))
+
         elif self.path == "/data":
             self.send_response(200)
             self.send_header("content-type", "application/json")
             self.end_headers()
             self.wfile.write(bytes(json_data, "utf-8"))
+
         elif self.path == "/status":
             self.send_response(200)
+            self.send_header("content-type", "application/json")
+            self.end_headers()
+            status_data = {"status": "OK"}
+            self.wfile.write(bytes(json.dumps(status_data), "utf-8"))
+
         elif self.path == "/info":
             self.send_response(200)
             self.send_header("content-type", "application/json")
