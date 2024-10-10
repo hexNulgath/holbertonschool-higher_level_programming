@@ -26,10 +26,7 @@ class my_server(http.server.BaseHTTPRequestHandler):
 
         elif self.path == "/status":
             self.send_response(200)
-            self.send_header("content-type", "application/json")
-            self.end_headers()
-            status_data = {"status": "OK"}
-            self.wfile.write(bytes(json.dumps(status_data), "utf-8"))
+
 
         elif self.path == "/info":
             self.send_response(200)
@@ -39,9 +36,6 @@ class my_server(http.server.BaseHTTPRequestHandler):
 
         else:
             self.send_response(404)
-            self.send_header("content-type", "text/html")
-            self.end_headers()
-            self.wfile.write(bytes("404: Endpoint not found", "utf-8"))
 
 with socketserver.TCPServer(("", PORT), my_server) as httpd:
     print(f"Serving at port {PORT}")
