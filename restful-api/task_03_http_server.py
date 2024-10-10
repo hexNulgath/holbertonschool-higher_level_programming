@@ -7,10 +7,8 @@ import json
 PORT = 8000
 data = {"name": "John", "age": 30, "city": "New York"}
 info = {"version": "1.0", "description": "A simple API built with http.server"}
-status = {"status": "OK"}
 json_data = json.dumps(data)
 json_info = json.dumps(info)
-json_status = json.dumps(status)
 
 class my_server(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
@@ -40,9 +38,6 @@ class my_server(http.server.BaseHTTPRequestHandler):
 
         else:
             self.send_response(404)
-            self.send_header("content-type", "text/html")
-            self.end_headers()
-            self.wfile.write(bytes("404 Not Found", "utf-8"))
 
 with socketserver.TCPServer(("", PORT), my_server) as httpd:
     print(f"Serving at port {PORT}")
