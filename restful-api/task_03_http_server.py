@@ -38,11 +38,9 @@ class my_server(http.server.BaseHTTPRequestHandler):
 
         else:
             self.send_response(404)
-            self.send_header("content-type", "application/json")
+            self.send_header("Content-type", "text/plain")
             self.end_headers()
-            error_message = {"error": "Not Found", "message": "404 Not Found"}
-            self.wfile.write(bytes(json.dumps(error_message), "utf-8"))
-            self.wfile.flush() 
+            self.wfile.write(b"Endpoint not found")
 
 with socketserver.TCPServer(("", PORT), my_server) as httpd:
     print(f"Serving at port {PORT}")
