@@ -30,6 +30,11 @@ def verify_password(username, password):
 def basic_protected():
     return "Basic Auth: Access Granted"
 
+@app.route('/')
+def index():
+    return "hello world!"
+
+
 # JWT Login Route
 @app.route('/login', methods=['POST'])
 def login():
