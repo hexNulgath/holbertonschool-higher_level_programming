@@ -15,7 +15,7 @@ jwt = JWTManager(app)
 # Users with hashed passwords and roles
 users = {
     "user1": {"username": "user1", "password": generate_password_hash("password"), "role": "user"},
-    "admin1": {"username": "admin1", "password": generate_password_hash("adminpass"), "role": "admin"}
+    "admin1": {"username": "admin1", "password": generate_password_hash("password"), "role": "admin"}
 }
 
 # Basic Authentication verification
