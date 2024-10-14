@@ -78,4 +78,4 @@ def handle_expired_token_error(err):
     return jsonify({"error": "Token has expired"}), 401
 
 if __name__ == '__main__':
-    app.run(port=8080)
+    app.run()
