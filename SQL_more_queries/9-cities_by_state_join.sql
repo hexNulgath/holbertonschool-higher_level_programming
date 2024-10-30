@@ -1,8 +1,8 @@
 -- lists all cities contained in the database hbtn_0d_usa.
 SELECT 
     c.id, 
-    c.name AS city_name, 
-    s.name AS state_name
+    c.name AS name, 
+    s.name AS name
 FROM 
     cities c
 JOIN 
