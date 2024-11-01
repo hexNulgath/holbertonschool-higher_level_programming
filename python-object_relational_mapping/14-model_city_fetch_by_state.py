@@ -10,8 +10,10 @@ Usage:
 from sys import argv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from model_city import City  # Ensure this file is in the same directory
+from model_city import Base, City
 from model_state import Base, State
+from sqlalchemy.ext.declarative import declarative_base
+
 
 
 def fetch_cities_by_state(username, password, db_name):
