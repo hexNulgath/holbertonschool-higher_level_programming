@@ -5,10 +5,7 @@ the `hbtn_0e_6_usa` MySQL database using SQLAlchemy.
 """
 
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-
-# Create a declarative base
-Base = declarative_base()
+from model_state import Base
 
 
 class City(Base):
@@ -24,7 +21,7 @@ class City(Base):
         which the city belongs, can't be null, foreign key.
     """
 
-    __tablename__ = 'cities'  # Name of the table in the database
+    __tablename__ = 'cities'
 
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     name = Column(String(128), nullable=False)
