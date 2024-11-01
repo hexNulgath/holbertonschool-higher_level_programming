@@ -56,7 +56,10 @@ def filter_states(username, password, db_name):
     )
 
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM states WHERE BINARY name LIKE 'N%' ORDER BY id ASC")
+    cursor.execute(
+        "SELECT * FROM states WHERE BINARY name LIKE 'N%' "
+        "ORDER BY id ASC"
+    )
 
     states = cursor.fetchall()
     for state in states:
