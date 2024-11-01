@@ -1,4 +1,31 @@
 #!/usr/bin/python3
+"""
+This module connects to a MySQL database and
+lists all records in the 'states' table.
+
+Usage:
+    The script takes three arguments:
+    1. MySQL username
+    2. MySQL password
+    3. Database name
+
+    Example:
+        ./script_name.py <username> <password> <db_name>
+
+The script connects to a MySQL database hosted on
+localhost at the default MySQL port (3306).
+It retrieves all records from the 'states' table
+and prints them in ascending order based on `id`.
+
+Requirements:
+    - MySQLdb library must be installed.
+    - MySQL server should be running and accessible on localhost.
+
+Functions:
+    - list_states(username, password, db_name): Connects to the database,
+    fetches and prints all state records ordered by `id`.
+
+"""
 import MySQLdb
 import sys
 
