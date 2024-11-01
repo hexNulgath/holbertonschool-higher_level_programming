@@ -34,7 +34,7 @@ def print_first_state(username, password, db_name):
     - db_name (str): Database name
 
     Returns:
-    - None: Prints the first state record to the console or "Nothing" 
+    - None: Prints the first state record to the console or "Nothing"
       if there are no records.
     """
     # Connect to the MySQL database
