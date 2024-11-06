@@ -2,23 +2,23 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import json
 import csv
-import sqlite3
 
 app = Flask(__name__)
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'  # SQLAlchemy will manage this database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+# Define the Product model
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    price = db.Column(db.Numeric(10, 2), nullable=False)
     category = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Numeric(10, 2), nullable=False)
 
     def to_dict(self):
-        """Convert product instance to dictionary"""
+        """Convert product instance to dictionary for rendering."""
         return {
             'id': self.id,
             'name': self.name,
@@ -26,44 +26,20 @@ class Product(db.Model):
             'price': str(self.price)  # Ensure price is string for consistency
         }
 
+# Create the database and tables if they don't exist
 def create_database():
-    with app.app_context():  # Ensure the app context is active
-        db.create_all()  # Create tables if they do not exist
-        if not Product.query.first():
-            products = [
-                Product(id=1, name='Laptop', category='Electronics', price=799.99),
-                Product(id=2, name='Coffee Mug', category='Home Goods', price=15.99)
+    # Ensure we are within the application context
+    with app.app_context():
+        db.create_all()  # This will create all the tables for SQLAlchemy models
+
+        # Insert some default products if the table is empty
+        if not Product.query.first():  # Check if there are any products
+            default_products = [
+                Product(name='Laptop', category='Electronics', price=799.99),
+                Product(name='Coffee Mug', category='Home Goods', price=15.99)
             ]
-            db.session.bulk_save_objects(products)
+            db.session.bulk_save_objects(default_products)
             db.session.commit()
-create_database()
-
-
-# Read CSV file
-def read_csv():
-    products = []
-    try:
-        with open('products.csv', mode='r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                row['price'] = float(row['price'])
-                row['id'] = int(row['id'])
-                products.append(row)
-    except FileNotFoundError:
-        return None
-    except Exception as e:
-        return str(e)
-    return products
-
-# Read JSON file
-def read_json():
-    try:
-        with open('products.json') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return None
-    except json.JSONDecodeError:
-        return "Error: Failed to decode JSON"
 
 @app.route('/')
 def home():
@@ -89,6 +65,30 @@ def items():
         return "<h1>Error: Failed to decode JSON</h1>"
 
     return render_template('items.html', items=items_list)
+
+def read_csv():
+    products = []
+    try:
+        with open('products.csv', mode='r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                row['price'] = float(row['price'])
+                row['id'] = int(row['id'])
+                products.append(row)
+    except FileNotFoundError:
+        return None
+    except Exception as e:
+        return str(e)
+    return products
+
+def read_json():
+    try:
+        with open('products.json') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
+    except json.JSONDecodeError:
+        return "Error: Failed to decode JSON"
 
 @app.route('/products')
 def products():
@@ -123,4 +123,5 @@ def products():
     return render_template('product_display.html', products=products)
 
 if __name__ == '__main__':
+    create_database()  # Ensure database and tables are created
     app.run(debug=True, port=5000)
