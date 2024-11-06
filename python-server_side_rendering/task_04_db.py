@@ -23,34 +23,47 @@ class Product(db.Model):
             'id': self.id,
             'name': self.name,
             'category': self.category,
-            'price': str(self.price)
+            'price': str(self.price)  # Ensure price is string for consistency
         }
 
 def create_database():
-    db.create_all()  
-    if not Product.query.first():
-        products = [
-            Product(id=1, name='Laptop', category='Electronics', price=799.99),
-            Product(id=2, name='Coffee Mug', category='Home Goods', price=15.99)
-        ]
-        db.session.bulk_save_objects(products)
-        db.session.commit()
+    with app.app_context():  # Ensure the app context is active
+        db.create_all()  # Create tables if they do not exist
+        if not Product.query.first():
+            products = [
+                Product(id=1, name='Laptop', category='Electronics', price=799.99),
+                Product(id=2, name='Coffee Mug', category='Home Goods', price=15.99)
+            ]
+            db.session.bulk_save_objects(products)
+            db.session.commit()
+create_database()
+
 
 # Read CSV file
 def read_csv():
     products = []
-    with open('products.csv', mode='r') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            row['price'] = float(row['price'])
-            row['id'] = int(row['id'])
-            products.append(row)
+    try:
+        with open('products.csv', mode='r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                row['price'] = float(row['price'])
+                row['id'] = int(row['id'])
+                products.append(row)
+    except FileNotFoundError:
+        return None
+    except Exception as e:
+        return str(e)
     return products
 
 # Read JSON file
 def read_json():
-    with open('products.json') as f:
-        return json.load(f)
+    try:
+        with open('products.json') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
+    except json.JSONDecodeError:
+        return "Error: Failed to decode JSON"
 
 @app.route('/')
 def home():
@@ -87,8 +100,16 @@ def products():
     
     if source == 'json':
         products = read_json()
+        if products is None:
+            return render_template('product_display.html', error="JSON file not found.")
+        elif isinstance(products, str):  # Error message from JSON decoding
+            return render_template('product_display.html', error=products)
     elif source == 'csv':
         products = read_csv()
+        if products is None:
+            return render_template('product_display.html', error="CSV file not found.")
+        elif isinstance(products, str):  # Error message from CSV reading
+            return render_template('product_display.html', error=products)
     elif source == 'sql':
         products = Product.query.all()
         products = [product.to_dict() for product in products]
@@ -100,8 +121,6 @@ def products():
         return render_template('product_display.html', error="Product not found.")
 
     return render_template('product_display.html', products=products)
-
-create_database()
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
