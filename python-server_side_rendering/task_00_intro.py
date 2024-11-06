@@ -1,15 +1,22 @@
 import os
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def generate_invitations(template, attendees):
     # Validate input types
     if not isinstance(template, str) or not isinstance(attendees, list):
-        raise TypeError("Invalid input. Template should be a string and attendees should be a list of dictionaries.")
+        logging.error("Invalid input. Template should be a string and attendees should be a list of dictionaries.")
+        return  # Log the error and stop execution
 
     # Check if template and attendees are provided
     if not template:
-        raise ValueError("Template is empty, no output files generated.")
+        logging.error("Template is empty, no output files generated.")
+        return
     if not attendees:
-        raise ValueError("No data provided, no output files generated.")
+        logging.error("No data provided, no output files generated.")
+        return
 
     # Generate invitations for each attendee
     for index, attendee in enumerate(attendees, start=1):
@@ -25,14 +32,14 @@ def generate_invitations(template, attendees):
         try:
             # Check if the file already exists
             if os.path.exists(file_name):
-                print(f"File {file_name} already exists, skipping...")
+                logging.warning(f"File {file_name} already exists, skipping...")
                 continue  # Skip writing if file already exists
 
             # Write the personalized message to the file
             with open(file_name, 'w') as file:
                 file.write(personalized_message)
-            print(f"Invitation written to {file_name}")
+            logging.info(f"Invitation written to {file_name}")
         
         except OSError as e:
-            # Handle potential file errors (e.g., permissions issues)
-            print(f"Error writing to {file_name}: {e}")
+            # Log the error if writing the file fails (e.g., permission issues)
+            logging.error(f"Error writing to {file_name}: {e}")
