@@ -1,45 +1,81 @@
 from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
+import sqlite3
 import json
 import csv
 
 app = Flask(__name__)
 
-# Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'  # SQLAlchemy will manage this database
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-# Define the Product model
-class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    category = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Numeric(10, 2), nullable=False)
-
-    def to_dict(self):
-        """Convert product instance to dictionary for rendering."""
-        return {
-            'id': self.id,
-            'name': self.name,
-            'category': self.category,
-            'price': str(self.price)  # Ensure price is string for consistency
-        }
-
-# Create the database and tables if they don't exist
+# Database setup function
 def create_database():
-    # Ensure we are within the application context
-    with app.app_context():
-        db.create_all()  # This will create all the tables for SQLAlchemy models
+    conn = sqlite3.connect('products.db')
+    cursor = conn.cursor()
 
-        # Insert some default products if the table is empty
-        if not Product.query.first():  # Check if there are any products
-            default_products = [
-                Product(name='Laptop', category='Electronics', price=799.99),
-                Product(name='Coffee Mug', category='Home Goods', price=15.99)
-            ]
-            db.session.bulk_save_objects(default_products)
-            db.session.commit()
+    # Create the table if it does not exist
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS Products (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            category TEXT NOT NULL,
+            price REAL NOT NULL
+        )
+    ''')
+    
+    # Insert initial data
+    cursor.execute('''
+        INSERT OR IGNORE INTO Products (id, name, category, price)
+        VALUES
+        (1, 'Laptop', 'Electronics', 799.99),
+        (2, 'Coffee Mug', 'Home Goods', 15.99)
+    ''')
+    
+    conn.commit()
+    conn.close()
+
+# Read from JSON file
+def read_json():
+    try:
+        with open('products.json') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
+    except json.JSONDecodeError:
+        return "Error: Failed to decode JSON"
+
+# Read from CSV file
+def read_csv():
+    products = []
+    try:
+        with open('products.csv', mode='r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                row['price'] = float(row['price'])
+                row['id'] = int(row['id'])
+                products.append(row)
+    except FileNotFoundError:
+        return None
+    except Exception as e:
+        return str(e)
+    return products
+
+# Fetch products from SQLite database
+def get_products_from_sql():
+    conn = sqlite3.connect('products.db')
+    cursor = conn.cursor()
+    
+    cursor.execute('SELECT * FROM Products')
+    rows = cursor.fetchall()
+
+    products = []
+    for row in rows:
+        products.append({
+            'id': row[0],
+            'name': row[1],
+            'category': row[2],
+            'price': row[3]
+        })
+    
+    conn.close()
+    return products
 
 @app.route('/')
 def home():
@@ -66,30 +102,6 @@ def items():
 
     return render_template('items.html', items=items_list)
 
-def read_csv():
-    products = []
-    try:
-        with open('products.csv', mode='r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                row['price'] = float(row['price'])
-                row['id'] = int(row['id'])
-                products.append(row)
-    except FileNotFoundError:
-        return None
-    except Exception as e:
-        return str(e)
-    return products
-
-def read_json():
-    try:
-        with open('products.json') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return None
-    except json.JSONDecodeError:
-        return "Error: Failed to decode JSON"
-
 @app.route('/products')
 def products():
     source = request.args.get('source')
@@ -111,8 +123,7 @@ def products():
         elif isinstance(products, str):  # Error message from CSV reading
             return render_template('product_display.html', error=products)
     elif source == 'sql':
-        products = Product.query.all()
-        products = [product.to_dict() for product in products]
+        products = get_products_from_sql()
 
     if product_id:
         products = [product for product in products if product['id'] == product_id]
@@ -123,5 +134,5 @@ def products():
     return render_template('product_display.html', products=products)
 
 if __name__ == '__main__':
-    create_database()  # Ensure database and tables are created
+    create_database()
     app.run(debug=True, port=5000)
