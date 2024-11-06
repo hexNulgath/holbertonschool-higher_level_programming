@@ -6,8 +6,10 @@ def generate_invitations(template, attendees):
     # Check if template and attendees are provided
     if not template:
         raise ValueError("Template is empty, no output files generated.")
+        return
     if not attendees:
         raise ValueError("No data provided, no output files generated.")
+        return
     
     # Generate invitations for each attendee
     for index, attendee in enumerate(attendees, start=1):
